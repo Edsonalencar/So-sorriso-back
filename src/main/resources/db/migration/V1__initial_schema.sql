@@ -83,5 +83,5 @@ CREATE TABLE privileges_on_users (
 INSERT INTO roles (id, name, created_at)
 VALUES
     ('2f9c3d5a-7e8b-4f1d-9c6b-8d7e5f4c3b2a', 'ROLE_DENTIST', NOW()),
-    ('3e8d4c5b-9f2a-5e1c-8d7b-6c5d4e3f2g1h', 'ROLE_ATTENDANT', NOW()),
-    ('4f7e6d5c-8g3b-6f2e-7d8c-5f4e3d2c1b0a', 'ROLE_ADMIN', NOW());
+    ('3e8d4c5b-9f2a-5e1c-8d7b-6c5d4e3f2c1b', 'ROLE_ATTENDANT', NOW()),
+    ('4f7e6d5c-8a3b-6f2e-7d8c-5f4e3d2c1b0a', 'ROLE_ADMIN', NOW());

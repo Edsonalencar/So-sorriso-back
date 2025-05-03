@@ -9,7 +9,7 @@ CREATE TABLE addresses (
     province VARCHAR(100),
     city VARCHAR(100),
     state VARCHAR(100),
-    created_at TIMESTAMPTZ NOT NULL
+    created_at TIMESTAMP NOT NULL
 );
 
 -- Tabela Auth
@@ -17,7 +17,7 @@ CREATE TABLE auths (
     id UUID PRIMARY KEY NOT NULL,
     username VARCHAR(255) UNIQUE NOT NULL,
     password VARCHAR(255) NOT NULL,
-    created_at TIMESTAMPTZ NOT NULL
+    created_at TIMESTAMP NOT NULL
 );
 
 -- Tabela Privilege
@@ -25,14 +25,14 @@ CREATE TABLE privileges (
     id UUID PRIMARY KEY NOT NULL,
     name VARCHAR(255) NOT NULL,
     is_signature_revoked BOOLEAN NOT NULL DEFAULT FALSE,
-    created_at TIMESTAMPTZ NOT NULL
+    created_at TIMESTAMP NOT NULL
 );
 
 -- Tabela Role
 CREATE TABLE roles (
     id UUID PRIMARY KEY NOT NULL,
     name VARCHAR(255) UNIQUE NOT NULL,
-    created_at TIMESTAMPTZ NOT NULL
+    created_at TIMESTAMP NOT NULL
 );
 
 -- Tabela Profile
@@ -44,7 +44,7 @@ CREATE TABLE profiles (
     phone VARCHAR(50),
     birth_date DATE,
     address_id UUID,
-    created_at TIMESTAMPTZ NOT NULL,
+    created_at TIMESTAMP NOT NULL,
     CONSTRAINT fk_address FOREIGN KEY (address_id) REFERENCES addresses(id) ON DELETE SET NULL
 );
 
@@ -55,7 +55,7 @@ CREATE TABLE users (
     auth_id UUID,
     profile_id UUID,
     role_id UUID,
-    created_at TIMESTAMPTZ NOT NULL,
+    created_at TIMESTAMP NOT NULL,
     CONSTRAINT fk_auth FOREIGN KEY (auth_id) REFERENCES auths(id) ON DELETE CASCADE,
     CONSTRAINT fk_profile FOREIGN KEY (profile_id) REFERENCES profiles(id) ON DELETE SET NULL,
     CONSTRAINT fk_role FOREIGN KEY (role_id) REFERENCES roles(id) ON DELETE SET NULL

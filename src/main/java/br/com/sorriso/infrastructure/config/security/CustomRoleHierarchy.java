@@ -20,13 +20,13 @@ public class CustomRoleHierarchy implements RoleHierarchy {
         authorities.forEach(authority -> {
             if ("ROLE_ADMIN".equals(authority.getAuthority())) {
                 reachableAuthorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
-                reachableAuthorities.add(new SimpleGrantedAuthority("ROLE_MANAGER"));
-                reachableAuthorities.add(new SimpleGrantedAuthority("ROLE_USER"));
-            } else if ("ROLE_MANAGER".equals(authority.getAuthority())) {
-                reachableAuthorities.add(new SimpleGrantedAuthority("ROLE_MANAGER"));
-                reachableAuthorities.add(new SimpleGrantedAuthority("ROLE_USER"));
-            } else if ("ROLE_USER".equals(authority.getAuthority())) {
-                reachableAuthorities.add(new SimpleGrantedAuthority("ROLE_USER"));
+                reachableAuthorities.add(new SimpleGrantedAuthority("ROLE_DENTIST"));
+                reachableAuthorities.add(new SimpleGrantedAuthority("ROLE_ATTENDANT"));
+            } else if ("ROLE_DENTIST".equals(authority.getAuthority())) {
+                reachableAuthorities.add(new SimpleGrantedAuthority("ROLE_DENTIST"));
+                reachableAuthorities.add(new SimpleGrantedAuthority("ROLE_ATTENDANT"));
+            } else if ("ROLE_ATTENDANT".equals(authority.getAuthority())) {
+                reachableAuthorities.add(new SimpleGrantedAuthority("ROLE_ATTENDANT"));
             }
         });
         return reachableAuthorities;

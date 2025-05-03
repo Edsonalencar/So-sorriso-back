@@ -99,7 +99,7 @@ public class UserService {
         authRequest.setPassword(user.getPassword());
         newUser.setAuth(authRequest);
 
-        Role role = roleRepository.findByName(user.getRole().toString())
+        Role role = roleRepository.findByName(user.getRole().getName())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Role não encontrada!"));
         newUser.setRole(role);
 

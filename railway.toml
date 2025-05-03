@@ -1,0 +1,13 @@
+# Nome do serviço no Railway
+[service]
+name = "nectar-api"
+
+# Build e Deploy usando Docker
+[build]
+builder = "DOCKERFILE"
+path = "./Dockerfile"
+
+[deploy]
+command = "java -jar app.jar"
+
+[env]

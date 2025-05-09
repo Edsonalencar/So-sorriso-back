@@ -48,49 +48,76 @@ public class UserController {
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody AuthRequestDTO authRequest) {
-        ResponseDTO<?> response = new ResponseDTO<>(userService.login(authRequest.username(), authRequest.password()));
-        return ResponseEntity.ok(response);
+        return ResponseEntity.ok(
+            new ResponseDTO<>(
+                userService.login(
+                    authRequest.username(),
+                    authRequest.password()
+                )
+            )
+        );
     }
 
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody UserRegistrationRequest user) {
-        ResponseDTO<?> response = new ResponseDTO<>(userService.create(user));
-        return ResponseEntity.ok(response);
+        return ResponseEntity.ok(
+            new ResponseDTO<>(
+                userService.create(user)
+            )
+        );
     }
 
     @PatchMapping("/{userId}/update-password")
     public ResponseEntity<?> updatePassword(@PathVariable UUID userId, @RequestParam String newPassword) {
-        ResponseDTO<?> response = new ResponseDTO<>(userService.updatePassword(userId, newPassword));
-        return ResponseEntity.ok(response);
+        return ResponseEntity.ok(
+            new ResponseDTO<>(
+                userService.updatePassword(userId, newPassword)
+            )
+        );
     }
 
     @PatchMapping("/{userId}/update-username")
     public ResponseEntity<?> updateUsername(@PathVariable UUID userId, @RequestParam String newUsername) {
-        ResponseDTO<?> response = new ResponseDTO<>(userService.updateUsername(userId, newUsername));
-        return ResponseEntity.ok(response);
+        return ResponseEntity.ok(
+            new ResponseDTO<>(
+                userService.updateUsername(userId, newUsername)
+            )
+        );
     }
 
     @PatchMapping("/{userId}/privileges/{privilegeId}/add")
     public ResponseEntity<?> addPrivilegeToUser(@PathVariable UUID userId, @PathVariable UUID privilegeId) {
-        ResponseDTO<?> response = new ResponseDTO<>(userService.addPrivilegeToUser(userId, privilegeId));
-        return ResponseEntity.ok(response);
+        return ResponseEntity.ok(
+            new ResponseDTO<>(
+                userService.addPrivilegeToUser(userId, privilegeId)
+            )
+        );
     }
 
     @PatchMapping("/{userId}/privileges/{privilegeId}/remove")
     public ResponseEntity<?> removePrivilegeFromUser(@PathVariable UUID userId,  @PathVariable UUID privilegeId) {
-        ResponseDTO<?> response = new ResponseDTO<>(userService.removePrivilegeFromUser(userId, privilegeId));
-        return ResponseEntity.ok(response);
+        return ResponseEntity.ok(
+            new ResponseDTO<>(
+                userService.removePrivilegeFromUser(userId, privilegeId)
+            )
+        );
     }
 
     @GetMapping("/{userId}")
     public ResponseEntity<?> getUserById(@PathVariable UUID userId) {
-        ResponseDTO<?> response = new ResponseDTO<>(userService.getUserById(userId));
-        return ResponseEntity.ok(response);
+        return ResponseEntity.ok(
+            new ResponseDTO<>(
+                userService.getUserById(userId)
+            )
+        );
     }
     
     @DeleteMapping("/{userId}")
     public ResponseEntity<?> deleteUser(@PathVariable UUID userId) {
-        ResponseDTO<?> response = new ResponseDTO<>(userService.deleteById(userId));
-        return ResponseEntity.ok(response);
+        return ResponseEntity.ok(
+            new ResponseDTO<>(
+                userService.deleteById(userId)
+            )
+        );
     }
 }

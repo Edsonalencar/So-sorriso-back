@@ -13,7 +13,8 @@ import java.util.UUID;
 public class GetPatientUseCase {
     private final PatientService patientService;
 
-    public Optional<Optional<Patient>> handler(UUID id){
-        return Optional.of(patientService.findById(id));
+    public Optional<Patient> handler(UUID id){
+
+        return patientService.findById(id);
     }
 }

@@ -11,6 +11,4 @@ public class PatientRegistrationRequest {
     private String name;
     private String phone;
     private LocalDate birthDate;
-    private Address address;
-
 }

@@ -1,5 +1,6 @@
 package br.com.sorriso.domain.clinic;
 
+import br.com.sorriso.domain.user.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -19,4 +20,5 @@ public class ClinicService {
         return clinicRepository.findById(id);
     }
 
+    public Optional<Clinic> getByUser(User user) {return clinicRepository.findByOwner(user);}
 }

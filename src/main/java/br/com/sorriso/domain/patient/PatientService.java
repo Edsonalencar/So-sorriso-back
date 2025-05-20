@@ -20,4 +20,9 @@ public class PatientService {
     public List<Patient> findAll() { return patientRepository.findAll(); }
 
     public void deleteById(UUID id) { this.patientRepository.deleteById(id); }
+
+    public void delete(Patient patient) { patientRepository.delete(patient); }
+
+    public Optional<Patient> getByIdAndClinic(UUID id, Clinic clinic) { return patientRepository.findByIdAndClinic(id, clinic); }
+
 }

@@ -1,13 +1,11 @@
 package br.com.sorriso.application.api.patient;
 
 import br.com.sorriso.application.api.common.ResponseDTO;
-import br.com.sorriso.application.api.user.dto.UserRegistrationRequest;
-import br.com.sorriso.application.useCases.patient.CreatePatientUseCase;
-import br.com.sorriso.application.useCases.patient.GetAllPatientsUseCase;
-import br.com.sorriso.application.useCases.patient.GetPatientUseCase;
+import br.com.sorriso.application.api.patient.dto.PatientRegistrationRequest;
+import br.com.sorriso.application.useCases.patient.*;
 import br.com.sorriso.domain.user.CustomUserDetails;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.repository.query.Param;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
@@ -21,26 +19,48 @@ public class PatientController {
     private final CreatePatientUseCase createPatientUseCase;
     private final GetPatientUseCase readPatientUseCase;
     private final GetAllPatientsUseCase readAllPatientsUseCase;
+    private final DeletePatientUseCase deletePatientUseCase;
+    private final UpdatePatientUseCase updatePatientUseCase;
 
     @GetMapping
     public ResponseEntity<?> getAll(
             @AuthenticationPrincipal CustomUserDetails userAuthentication
             ) {
 
-        return ResponseEntity.ok(new ResponseDTO<>(readAllPatientsUseCase.handler()) );
+        return ResponseEntity.ok(new ResponseDTO<>(readAllPatientsUseCase.handler()));
     }
 
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<?> get(@PathVariable UUID id,
             @AuthenticationPrincipal CustomUserDetails userAuthentication
     ) {
 
-        return ResponseEntity.ok(new ResponseDTO<>(readPatientUseCase.handler(id)) );
+        return ResponseEntity.ok(new ResponseDTO<>(readPatientUseCase.handler(id)));
+    }
+
+    @DeleteMapping("/{id}")
+    @Transactional
+    public ResponseEntity<?> delete(@AuthenticationPrincipal CustomUserDetails userAuthentication,
+                                    @PathVariable UUID id){
+        deletePatientUseCase.handler(id, userAuthentication.getUser());
+
+        return ResponseEntity.ok().build();
     }
 
     @PostMapping
     public ResponseEntity<?> create(
             @AuthenticationPrincipal CustomUserDetails userAuthentication,
-            @RequestBody UserRegistrationRequest request
-    )
+            @RequestBody PatientRegistrationRequest request
+    ) {
+        return ResponseEntity.ok(new ResponseDTO<>(createPatientUseCase.handler(request)));
+    }
+
+    @PutMapping("/{id}")
+    @Transactional
+    public ResponseEntity<?> update(@AuthenticationPrincipal CustomUserDetails userAuthentication,
+                                    @PathVariable UUID id,
+                                    @RequestBody PatientRegistrationRequest request){
+
+        return ResponseEntity.ok(new ResponseDTO<>(updatePatientUseCase.handler(id, request)));
+    }
 }

@@ -1,9 +1,9 @@
-package br.com.sorriso.application.api.user.dto;
+package br.com.sorriso.application.api.local.dtos;
 
 import br.com.sorriso.domain.user.ActiveStatus;
 import lombok.Data;
 
 @Data
-public class UpdateUserStatusDTO {
+public class UpdateLocalStatusRequest {
     private ActiveStatus status;
 }

@@ -19,6 +19,8 @@ public class Clinic {
     @Id
     private UUID id = UUID.randomUUID();
 
+    private String name;
+
     @OneToOne
     private User owner;
 

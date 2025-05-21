@@ -2,7 +2,7 @@ package br.com.sorriso.application.api.clinic;
 
 import br.com.sorriso.application.api.common.ResponseDTO;
 import br.com.sorriso.application.api.user.dto.UserRegistrationRequest;
-import br.com.sorriso.application.useCases.clinic.CreateCliniicUseCase;
+import br.com.sorriso.application.useCase.clinic.CreateCliniicUseCase;
 import br.com.sorriso.domain.user.CustomUserDetails;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

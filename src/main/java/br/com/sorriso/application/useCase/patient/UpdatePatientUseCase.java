@@ -1,4 +1,4 @@
-package br.com.sorriso.application.useCases.patient;
+package br.com.sorriso.application.useCase.patient;
 
 import br.com.sorriso.application.api.patient.dto.PatientRegistrationRequest;
 import br.com.sorriso.domain.patient.Patient;

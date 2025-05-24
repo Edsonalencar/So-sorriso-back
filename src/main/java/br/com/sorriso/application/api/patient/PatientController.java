@@ -2,7 +2,7 @@ package br.com.sorriso.application.api.patient;
 
 import br.com.sorriso.application.api.common.ResponseDTO;
 import br.com.sorriso.application.api.patient.dto.PatientRegistrationRequest;
-import br.com.sorriso.application.useCases.patient.*;
+import br.com.sorriso.application.useCase.patient.*;
 import br.com.sorriso.domain.user.CustomUserDetails;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;

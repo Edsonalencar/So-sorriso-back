@@ -23,7 +23,7 @@ public class User {
     private UUID id = UUID.randomUUID();
 
     @Enumerated(EnumType.STRING)
-    private UserStatus status = UserStatus.ACTIVE;
+    private ActiveStatus status = ActiveStatus.ACTIVE;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "auth_id", referencedColumnName = "id")

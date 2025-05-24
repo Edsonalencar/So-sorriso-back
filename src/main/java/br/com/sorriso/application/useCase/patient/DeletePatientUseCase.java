@@ -1,18 +1,13 @@
-package br.com.sorriso.application.useCases.patient;
+package br.com.sorriso.application.useCase.patient;
 
-import br.com.sorriso.domain.clinic.ClinicRepository;
 import br.com.sorriso.domain.clinic.ClinicService;
-import br.com.sorriso.domain.patient.Patient;
-import br.com.sorriso.domain.patient.PatientRepository;
 import br.com.sorriso.domain.patient.PatientService;
 import br.com.sorriso.domain.user.User;
 import br.com.sorriso.infrastructure.exceptions.FrontDisplayableException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
-import java.util.Optional;
 import java.util.UUID;
 
 @Component

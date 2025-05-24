@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.server.ResponseStatusException;
 
 import br.com.sorriso.domain.user.CustomUserDetails;
-import br.com.sorriso.domain.user.UserStatus;
+import br.com.sorriso.domain.user.ActiveStatus;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
@@ -31,7 +31,7 @@ public class JwtGenerator {
                 .map(privilege -> privilege.getName())
                 .toArray(String[]::new);
         
-        if (user.getStatus().equals(UserStatus.INACTIVE)) {
+        if (user.getStatus().equals(ActiveStatus.INACTIVE)) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Usuário inativo");
         }
         return Jwts.builder()

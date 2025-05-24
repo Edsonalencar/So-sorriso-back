@@ -4,11 +4,8 @@ import br.com.sorriso.application.api.patient.dto.PatientRegistrationRequest;
 import br.com.sorriso.domain.patient.Patient;
 import br.com.sorriso.domain.patient.PatientService;
 import br.com.sorriso.domain.profile.Profile;
-import lombok.Data;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
-
 import java.util.Optional;
 import java.util.UUID;
 

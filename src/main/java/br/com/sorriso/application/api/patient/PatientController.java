@@ -26,16 +26,18 @@ public class PatientController {
     public ResponseEntity<?> getAll(
             @AuthenticationPrincipal CustomUserDetails userAuthentication
             ) {
+        var user = userAuthentication.getUser();
 
-        return ResponseEntity.ok(new ResponseDTO<>(readAllPatientsUseCase.handler()));
+        return ResponseEntity.ok(new ResponseDTO<>(readAllPatientsUseCase.handler(user)));
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<?> get(@PathVariable UUID id,
             @AuthenticationPrincipal CustomUserDetails userAuthentication
     ) {
+        var user = userAuthentication.getUser();
 
-        return ResponseEntity.ok(new ResponseDTO<>(readPatientUseCase.handler(id)));
+        return ResponseEntity.ok(new ResponseDTO<>(readPatientUseCase.handler(user, id)));
     }
 
     @DeleteMapping("/{id}")
@@ -52,7 +54,9 @@ public class PatientController {
             @AuthenticationPrincipal CustomUserDetails userAuthentication,
             @RequestBody PatientRegistrationRequest request
     ) {
-        return ResponseEntity.ok(new ResponseDTO<>(createPatientUseCase.handler(request)));
+        var user = userAuthentication.getUser();
+
+        return ResponseEntity.ok(new ResponseDTO<>(createPatientUseCase.handler(user, request)));
     }
 
     @PutMapping("/{id}")
@@ -60,7 +64,8 @@ public class PatientController {
     public ResponseEntity<?> update(@AuthenticationPrincipal CustomUserDetails userAuthentication,
                                     @PathVariable UUID id,
                                     @RequestBody PatientRegistrationRequest request){
+        var user = userAuthentication.getUser();
 
-        return ResponseEntity.ok(new ResponseDTO<>(updatePatientUseCase.handler(id, request)));
+        return ResponseEntity.ok(new ResponseDTO<>(updatePatientUseCase.handler(user, id, request)));
     }
 }

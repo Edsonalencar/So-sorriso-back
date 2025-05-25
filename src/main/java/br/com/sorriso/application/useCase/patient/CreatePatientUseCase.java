@@ -1,6 +1,6 @@
 package br.com.sorriso.application.useCase.patient;
 
-import br.com.sorriso.application.api.patient.dto.PatientRegistrationRequest;
+import br.com.sorriso.application.api.patient.dtos.PatientRegistrationRequest;
 import br.com.sorriso.domain.clinic.ClinicService;
 import br.com.sorriso.domain.patient.Patient;
 import br.com.sorriso.domain.patient.PatientService;
@@ -19,7 +19,10 @@ public class CreatePatientUseCase {
     private final PatientService patientService;
     private final ClinicService clinicService;
 
-    public Optional<?> handler(User user, PatientRegistrationRequest request) {
+    public Optional<?> handler(
+        User user,
+        PatientRegistrationRequest request
+    ) {
         Patient newPatient = new Patient();
 
         var clinic = clinicService.getByUser(user).orElseThrow(()->
@@ -37,6 +40,7 @@ public class CreatePatientUseCase {
         profile.setBirthDate(request.getBirthDate());
         profile.setDocument(request.getDocument());
         newPatient.setProfile(profile);
+        newPatient.setClinic(clinic);
 
         return Optional.of(patientService.save(newPatient));
     }

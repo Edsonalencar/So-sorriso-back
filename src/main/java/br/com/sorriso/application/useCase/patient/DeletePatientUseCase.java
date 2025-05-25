@@ -16,7 +16,10 @@ public class DeletePatientUseCase {
     private final PatientService patientService;
     private final ClinicService clinicService;
 
-    public void handler(UUID id, User user){
+    public void handler(
+        UUID id,
+        User user
+    ){
         var clinic = clinicService.getByUser(user).orElseThrow(()->
                 new FrontDisplayableException(
                         HttpStatus.BAD_REQUEST,

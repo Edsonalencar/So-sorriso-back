@@ -1,6 +1,6 @@
 package br.com.sorriso.application.useCase.patient;
 
-import br.com.sorriso.application.api.patient.dto.PatientRegistrationRequest;
+import br.com.sorriso.application.api.patient.dtos.PatientRegistrationRequest;
 import br.com.sorriso.domain.clinic.ClinicService;
 import br.com.sorriso.domain.patient.PatientService;
 import br.com.sorriso.domain.profile.Profile;
@@ -20,8 +20,11 @@ public class UpdatePatientUseCase {
     private final PatientService patientService;
     private final ClinicService clinicService;
 
-    public Optional<?> handler(User user, UUID id, PatientRegistrationRequest request) {
-
+    public Optional<?> handler(
+            User user,
+            UUID id,
+            PatientRegistrationRequest request
+    ) {
         var clinic = clinicService.getByUser(user).orElseThrow(()->
                 new FrontDisplayableException(
                         HttpStatus.BAD_REQUEST,

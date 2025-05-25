@@ -18,8 +18,10 @@ public class GetPatientUseCase {
     private final PatientService patientService;
     private final ClinicService clinicService;
 
-    public Optional<?> handler(User user, UUID id){
-
+    public Optional<?> handler(
+        User user,
+        UUID id
+    ){
         var clinic = clinicService.getByUser(user).orElseThrow(()->
                 new FrontDisplayableException(
                         HttpStatus.BAD_REQUEST,

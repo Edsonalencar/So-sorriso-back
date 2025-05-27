@@ -1,11 +1,15 @@
 package br.com.sorriso.application.useCase.patient;
 
-import br.com.sorriso.application.api.patient.dto.PatientRegistrationRequest;
-import br.com.sorriso.domain.patient.Patient;
+import br.com.sorriso.application.api.patient.dtos.PatientRegistrationRequest;
+import br.com.sorriso.domain.clinic.ClinicService;
 import br.com.sorriso.domain.patient.PatientService;
 import br.com.sorriso.domain.profile.Profile;
+import br.com.sorriso.domain.user.User;
+import br.com.sorriso.infrastructure.exceptions.FrontDisplayableException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -14,32 +18,34 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class UpdatePatientUseCase {
     private final PatientService patientService;
+    private final ClinicService clinicService;
 
-    public Optional<?> handler(UUID id, PatientRegistrationRequest request) {
-        Optional<Patient> patient = patientService.findById(id);
+    public Optional<?> handler(
+            User user,
+            UUID id,
+            PatientRegistrationRequest request
+    ) {
+        var clinic = clinicService.getByUser(user).orElseThrow(()->
+                new FrontDisplayableException(
+                        HttpStatus.BAD_REQUEST,
+                        "Clinic not found"
+                )
+        );
 
-        if(patient.isEmpty()) {
-            return Optional.empty();
-        }
+        var patient = patientService.getByIdAndClinic(id, clinic).orElseThrow(()->
+            new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST,
+                    "Patient not found"
+            )
+        );
 
-        Profile profile = patient.get().getProfile();
+        Profile profile = patient.getProfile();
 
-        if(request.getPhoto() != null) {
-            patient.get().getProfile().setPhoto(request.getPhoto());
-        }
+        profile.setPhoto(request.getPhoto());
+        profile.setDocument(request.getDocument());
+        profile.setBirthDate(request.getBirthDate());
+        profile.setName(request.getName());
 
-        if(request.getDocument() != null) {
-            patient.get().getProfile().setDocument(request.getDocument());
-        }
-
-        if (request.getBirthDate() != null) {
-            patient.get().getProfile().setBirthDate(request.getBirthDate());
-        }
-
-        if(request.getName() != null) {
-            patient.get().getProfile().setName(request.getName());
-        }
-
-        return Optional.of(patientService.save(patient.get()));
+        return Optional.of(patientService.save(patient));
     }
 }

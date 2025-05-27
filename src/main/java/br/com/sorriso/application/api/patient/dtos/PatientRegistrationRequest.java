@@ -1,6 +1,5 @@
-package br.com.sorriso.application.api.patient.dto;
+package br.com.sorriso.application.api.patient.dtos;
 
-import br.com.sorriso.domain.address.Address;
 import lombok.Data;
 import java.time.LocalDate;
 

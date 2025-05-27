@@ -1,10 +1,12 @@
 package br.com.sorriso.application.api.patient;
 
 import br.com.sorriso.application.api.common.ResponseDTO;
-import br.com.sorriso.application.api.patient.dto.PatientRegistrationRequest;
+import br.com.sorriso.application.api.patient.dtos.GetPagePatientRequest;
+import br.com.sorriso.application.api.patient.dtos.PatientRegistrationRequest;
 import br.com.sorriso.application.useCase.patient.*;
 import br.com.sorriso.domain.user.CustomUserDetails;
 import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -17,25 +19,28 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class PatientController {
     private final CreatePatientUseCase createPatientUseCase;
-    private final GetPatientUseCase readPatientUseCase;
-    private final GetAllPatientsUseCase readAllPatientsUseCase;
+    private final GetPatientUseCase getPatientUseCase;
+    private final GetAllPatientsUseCase getAllPatientsUseCase;
     private final DeletePatientUseCase deletePatientUseCase;
     private final UpdatePatientUseCase updatePatientUseCase;
+    private final GetPagePatientUseCase getPagePatientUseCase;
 
     @GetMapping
     public ResponseEntity<?> getAll(
             @AuthenticationPrincipal CustomUserDetails userAuthentication
             ) {
+        var user = userAuthentication.getUser();
 
-        return ResponseEntity.ok(new ResponseDTO<>(readAllPatientsUseCase.handler()));
+        return ResponseEntity.ok(new ResponseDTO<>(getAllPatientsUseCase.handler(user)));
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<?> get(@PathVariable UUID id,
             @AuthenticationPrincipal CustomUserDetails userAuthentication
     ) {
+        var user = userAuthentication.getUser();
 
-        return ResponseEntity.ok(new ResponseDTO<>(readPatientUseCase.handler(id)));
+        return ResponseEntity.ok(new ResponseDTO<>(getPatientUseCase.handler(user, id)));
     }
 
     @DeleteMapping("/{id}")
@@ -52,7 +57,9 @@ public class PatientController {
             @AuthenticationPrincipal CustomUserDetails userAuthentication,
             @RequestBody PatientRegistrationRequest request
     ) {
-        return ResponseEntity.ok(new ResponseDTO<>(createPatientUseCase.handler(request)));
+        var user = userAuthentication.getUser();
+
+        return ResponseEntity.ok(new ResponseDTO<>(createPatientUseCase.handler(user, request)));
     }
 
     @PutMapping("/{id}")
@@ -60,7 +67,21 @@ public class PatientController {
     public ResponseEntity<?> update(@AuthenticationPrincipal CustomUserDetails userAuthentication,
                                     @PathVariable UUID id,
                                     @RequestBody PatientRegistrationRequest request){
+        var user = userAuthentication.getUser();
 
-        return ResponseEntity.ok(new ResponseDTO<>(updatePatientUseCase.handler(id, request)));
+        return ResponseEntity.ok(new ResponseDTO<>(updatePatientUseCase.handler(user, id, request)));
+    }
+
+    @PostMapping("/page/{page}")
+    public ResponseEntity<?> page(
+            @AuthenticationPrincipal CustomUserDetails userAuthentication,
+            @PathVariable Integer page,
+            @Valid @RequestBody GetPagePatientRequest request
+    ) {
+        var user = userAuthentication.getUser();
+
+        var result = getPagePatientUseCase.handler(user, page, request);
+
+        return ResponseEntity.ok(new ResponseDTO<>(result));
     }
 }

@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Entity
-@Table(name = "clinics")
+@Table(name = "clinic")
 @Getter
 @Setter
 public class Clinic {

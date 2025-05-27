@@ -15,7 +15,7 @@ import br.com.sorriso.application.useCase.clinic.*;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/sorriso/api/clinics")
+@RequestMapping("/sorriso/api/clinic")
 @RequiredArgsConstructor
 public class ClinicController {
 
